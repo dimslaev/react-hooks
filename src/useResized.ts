@@ -1,28 +1,31 @@
 import * as React from "react";
 import { debounce } from "@github/mini-throttle";
 
-const RESIZE_THROTTLE_MS = 400;
+const DEBOUNCE_DELAY = 400;
 
-type Resized = Pick<Window, "innerWidth" | "innerHeight">;
+/**
+ * @method useResized
+ *
+ * Ensures window.innerHeight is updated as expected
+ * when the address bar on mobile devices collapses
+ * during scrolling.
+ *
+ * Adding this in a top level component will ensure that
+ * window.innerHeight has correct value throughout the
+ * application without importing the hook anywhere else.
+ */
 
-export const useResized = (
-  enabled: boolean,
-  throttleDelay?: number,
-): Resized => {
-  const [resized, setResized] = React.useState<Resized>({
-    innerWidth: window ? window.innerWidth : 0,
-    innerHeight: window ? window.innerHeight : 0,
-  });
+export const useResized = (enabled?: boolean, delay?: number): number => {
+  const [height, setHeight] = React.useState(window.innerHeight);
 
   React.useEffect(() => {
-    if (enabled === false) return;
+    if (enabled === false) {
+      return;
+    }
 
     const onResize = debounce(() => {
-      setResized({
-        innerWidth: window.innerWidth,
-        innerHeight: window.innerHeight,
-      });
-    }, throttleDelay || RESIZE_THROTTLE_MS);
+      setHeight(window.innerHeight);
+    }, delay || DEBOUNCE_DELAY);
 
     window.addEventListener("resize", onResize);
     dispatchEvent(new Event("resize"));
@@ -31,5 +34,5 @@ export const useResized = (
     };
   }, [enabled]);
 
-  return resized;
+  return height;
 };
