@@ -2,7 +2,9 @@
   "name": "example-app",
   "private": true,
   "scripts": {
-    "start": "../node_modules/parcel/lib/bin.js index.html"
+    "start": "../node_modules/parcel/lib/bin.js index.html --dist-dir ../docs",
+    "clean": "rm -rf ../docs",
+    "build": "yarn clean && ../node_modules/parcel/lib/bin.js build index.html --dist-dir ../docs --no-source-maps"
   },
   "browserslist": {
     "development": [
