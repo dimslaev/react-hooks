@@ -1,0 +1,17 @@
+{
+  "name": "example-app",
+  "private": true,
+  "scripts": {
+    "start": "../node_modules/parcel/lib/bin.js index.html"
+  },
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@dims/react-hooks": "latest"
+  }
+}
