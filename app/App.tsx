@@ -1,5 +1,7 @@
 import * as React from "react";
 import { UseResizedExample } from "./examples/UseResizedExample";
+import { UseSmoothScroll } from "./examples/UseSmoothScroll";
+
 import "./style.css";
 
 const examples: {
@@ -9,6 +11,10 @@ const examples: {
   {
     id: "useResized",
     component: <UseResizedExample />,
+  },
+  {
+    id: "useSmoothScroll",
+    component: <UseSmoothScroll />,
   },
 ];
 
@@ -22,17 +28,17 @@ export const App = () => {
           <h1>Pick an example:</h1>
 
           <nav>
-            {examples.map(({ id, component }) => {
-              return (
-                <a
-                  key={`nav-link-${id}`}
-                  role="button"
-                  onClick={() => setExample(component)}
-                >
-                  {id}
-                </a>
-              );
-            })}
+            <ul>
+              {examples.map(({ id, component }) => {
+                return (
+                  <li key={`nav-item-${id}`}>
+                    <a role="button" onClick={() => setExample(component)}>
+                      {id}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
         </>
       )}
