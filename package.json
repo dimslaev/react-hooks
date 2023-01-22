@@ -15,7 +15,7 @@
   "scripts": {
     "start:docs": "cd app && yarn start",
     "build:docs": "cd app && yarn build",
-    "build": "rimraf dist && rimraf docs && parcel build ./src/index.ts --no-source-maps",
+    "build": "rimraf dist && parcel build ./src/index.ts --no-source-maps",
     "lint": "eslint src/**/*.ts app/**/*.tsx",
     "test": "echo \"Running tests for version $npm_package_version...\"",
     "preversion": "yarn build",
