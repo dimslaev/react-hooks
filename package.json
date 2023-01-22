@@ -1,6 +1,6 @@
 {
   "name": "@dims/react-hooks",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Library of react hooks",
   "tags": [
     "react",
@@ -15,10 +15,10 @@
   "scripts": {
     "start:docs": "cd app && yarn start",
     "build:docs": "cd app && yarn build",
-    "build": "rimraf dist && parcel build ./src/index.ts --no-source-maps",
+    "build": "rimraf dist && rimraf docs && parcel build ./src/index.ts --no-source-maps",
     "lint": "eslint src/**/*.ts app/**/*.tsx",
     "test": "echo \"Running tests for version $npm_package_version...\"",
-    "preversion": "yarn build",
+    "preversion": "yarn build && yarn build:docs",
     "postversion": "git push --tags && yarn publish --access public"
   },
   "repository": {
