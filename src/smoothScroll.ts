@@ -26,7 +26,7 @@ export type ISmoothScroll = {
   direction: Direction;
   distance: number;
   duration: number;
-  hasBeenInterrupted: boolean;
+  wasInterrupted: boolean;
   easingFn: Easings[Easing];
   callback?: () => void;
   getFromCoordinate: () => number;
@@ -62,7 +62,7 @@ const SmoothScroll: ISmoothScroll = {
   easingFn: EASINGS["easeOut"],
   interruptOnScroll: true,
   isScrolling: false,
-  hasBeenInterrupted: false,
+  wasInterrupted: false,
 
   init: function (options) {
     this.speed = options.speed || this.speed;
@@ -87,7 +87,7 @@ const SmoothScroll: ISmoothScroll = {
     this.distance = this.getDistance();
     this.duration = this.speed * this.distance;
 
-    this.hasBeenInterrupted = false;
+    this.wasInterrupted = false;
 
     if (this.distance === 0) {
       return;
@@ -170,7 +170,7 @@ const SmoothScroll: ISmoothScroll = {
 
   onScrollInterrupt: function () {
     this.isScrolling = false;
-    this.hasBeenInterrupted = true;
+    this.wasInterrupted = true;
     this.removeListeners();
   },
 
@@ -183,7 +183,7 @@ const SmoothScroll: ISmoothScroll = {
   },
 
   tick: function () {
-    if (this.interruptOnScroll && this.hasBeenInterrupted) return;
+    if (this.interruptOnScroll && this.wasInterrupted) return;
 
     const elapsed = performance.now() - this.startTime;
     const progress = Math.min(elapsed / this.duration, 1);
